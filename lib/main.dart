@@ -1,11 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase/Service/auth_gate.dart';
 import 'package:flutter_firebase/firebase_options.dart';
+import 'package:flutter_firebase/pages/signin.dart';
 import 'package:flutter_firebase/pages/signup.dart';
 
 void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
-  await Firebase.initializeApp();
 }
 
 class MyApp extends StatelessWidget {
@@ -15,7 +18,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const signup(),
+      debugShowCheckedModeBanner: false,
+      home: const AuthGate(),
     );
   }
 }

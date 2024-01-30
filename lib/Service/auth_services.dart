@@ -13,14 +13,18 @@ class AuthService{
 
   Future<UserCredential> signinWithEmailAndPAssword( String  email,password)async{
     try{
-       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email:email!, password: password!);
-       firebaseFirestore.collection("Users").doc(userCredential.user!.uid).set(
+      
+       
+        UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email:email!, password: password!);
+         firebaseFirestore.collection("Users").doc(userCredential.user!.uid).set(
         {
           'uid':userCredential.user!.uid,
           "email":email
         },  
        );
        return userCredential;
+       
+       
     }on FirebaseAuthException catch(e){
       throw Expando(e.code);
     }
@@ -29,6 +33,12 @@ class AuthService{
   Future<UserCredential> signUpWithEmailAndPAssword( String  email,password)async{
     try{
        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email:email!, password: password!);
+       firebaseFirestore.collection("Users").doc(userCredential.user!.uid).set(
+        {
+          'uid':userCredential.user!.uid,
+          "email":email
+        },  
+       );
        return userCredential;
     }on FirebaseAuthException catch(e){
       throw Expando(e.code);

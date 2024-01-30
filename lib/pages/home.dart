@@ -1,4 +1,4 @@
-import 'dart:js';
+//import 'dart:js';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -24,7 +24,15 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Home"),
-      
+      actions: [
+            // Logout Icon Button
+            IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () {
+                logout();
+              },
+            ),
+          ],
       ),
       body: _builduser(),
     );
@@ -44,10 +52,10 @@ class Home extends StatelessWidget {
     });
   }
   Widget _buildUserListItem(Map<String,dynamic> userData ,BuildContext context){
-    if(userData["email"] != authService.getCurrentUser()){
+    if(userData["email"] != authService.getCurrentUser()!.email){
     return UserTile(text: userData["email"],ontap: () {
       
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Chatpage(recieverEmail: userData["email"])));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Chatpage(recieverEmail: userData["email"],recieverId: userData["uid"],)));
     },
     );}
     else return Container();

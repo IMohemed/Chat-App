@@ -21,13 +21,14 @@ class _signupState extends State<signup> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController conpasswordController = TextEditingController();
   FToast? fToast;
-  bool _isObscured=true;
+  bool _isObscured=true,_isObscured1=true;
 
   void register(){
     final auth = AuthService();
-    if(passwordController.text == conpasswordController){
+    if(passwordController.text == conpasswordController.text){
       try{
         auth.signUpWithEmailAndPAssword(usernameController.text, passwordController.text);
+
       }
       catch(e){
       showDialog(context: context, builder: (context) => AlertDialog(
@@ -89,7 +90,7 @@ class _signupState extends State<signup> {
                   SizedBox(height: 16.0),
                   TextFormField(
                     controller: passwordController,
-                    obscureText: true,
+                    obscureText: _isObscured,
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
                   icon: Icon(_isObscured ? Icons.visibility : Icons.visibility_off),
@@ -113,13 +114,13 @@ class _signupState extends State<signup> {
                   SizedBox(height: 16.0),
                   TextFormField(
                     controller: conpasswordController,
-                    obscureText: true,
+                    obscureText: _isObscured1,
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
-                  icon: Icon(_isObscured ? Icons.visibility : Icons.visibility_off),
+                  icon: Icon(_isObscured1 ? Icons.visibility : Icons.visibility_off),
                   onPressed: () {
                     setState(() {
-                      _isObscured = !_isObscured;
+                      _isObscured1 = !_isObscured1;
                     });
                   },
                 ),
