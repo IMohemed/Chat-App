@@ -16,6 +16,7 @@ class Chatpage extends StatelessWidget {
 
   final ChatService chatService = ChatService();
   final AuthService authService = AuthService();
+  final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
   void sendMessage()async{
     if(messagecon.text.isNotEmpty){
@@ -27,7 +28,21 @@ class Chatpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(recieverEmail),),
+      appBar: AppBar(
+        title: StreamBuilder<DocumentSnapshot>(stream: firebaseFirestore.collection("Users").doc(recieverId).snapshots() ,builder: (context,snapshot){
+          if (snapshot.data !=null){
+            return Container(
+              child: Column(
+                children: [
+                  Text(recieverEmail),
+                  Text(snapshot.data?["status"])
+                ],
+              ),
+            );
+          }
+          else return Container();
+        }),
+        ),
       body: Column(
         children: [
           Expanded(
