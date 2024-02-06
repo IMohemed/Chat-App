@@ -37,6 +37,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     setStatus("online");
+    
   }
 
   void setStatus(String status)async{
@@ -45,7 +46,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
    });
   }
 
-  void changeState(AppLifecycleState state){
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state){
+    
       if(state == AppLifecycleState.resumed){
         setStatus("online");
       }

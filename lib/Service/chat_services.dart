@@ -1,4 +1,4 @@
-import 'dart:html';
+//import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,12 +33,12 @@ class ChatService{
   //   });
   // }
 
-  Future<void> sendMessage(String recieverId,message)async{
+  Future<void> sendMessage({required String recieverId, message,image})async{
     final String curuId = firebaseAuth.currentUser!.uid;
     final String curuEmail = firebaseAuth.currentUser!.email!;
     final Timestamp timestamp = Timestamp.now();
 
-    Message newmessage = Message(senderId: curuId, senderEmail: curuEmail, recieverId: recieverId, message: message, timestamp: timestamp);
+    Message newmessage = Message(senderId: curuId, senderEmail: curuEmail, recieverId: recieverId, message: message,type: image, timestamp: timestamp);
 
     List<String> ids=[curuId,recieverId];
     ids.sort();
@@ -52,7 +52,7 @@ class ChatService{
     List<String> ids = [userId,otherUserId];
     ids.sort();
     String chatroomId = ids.join("_");
-    Future.delayed(Duration(seconds: 5));
+    //Future.delayed(Duration(seconds: 5));
     return firebaseFirestore.collection("chat_rooms").doc(chatroomId).collection("messages").orderBy("timestamp",descending: false).snapshots();
     
     //return DataRef.child("chat_rooms").child(chatroomId).child("messages").orderByChild("timestamp").onValue; 
