@@ -105,23 +105,39 @@ class _ChatpageState extends State<Chatpage> {
 
   Widget buildInput(){
     return Padding(
-      padding: const EdgeInsets.only(bottom:50.0),
-      child: Row(
-        children: [
-          Expanded(child: TextField(
-            controller: messagecon,
-            
-            obscureText: false,
-            decoration: InputDecoration(
-              labelText: "enter message",
-              suffixIcon: IconButton(onPressed: _pickimage, icon: Icon(Icons.photo))
+      
+      padding: const EdgeInsets.only(bottom:0.0),
+      child: Container(
+        decoration: BoxDecoration(
+              //borderRadius: BorderRadius.only(topLeft: ), // Border radius
+              border: Border.all(
+                color: Colors.black87, // Border color
+                ////width: 2.0, // Border width
+              ),
             ),
-          )),
-          Container(
-            decoration: BoxDecoration(color: Colors.green,shape: BoxShape.circle),
-            margin: EdgeInsets.only(right: 25),
-            child: IconButton(onPressed: sendMessage, icon: Icon(Icons.send)))
-        ],
+        child: Row(
+          children: [
+            Expanded(child: Padding(
+              padding: const EdgeInsets.all(5),
+              child: TextField(
+                controller: messagecon,
+                
+                obscureText: false,
+                decoration: InputDecoration(
+                  labelText: "enter message",
+                  suffixIcon: IconButton(onPressed: _pickimage, icon: Icon(Icons.photo)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+            )),
+            Container(
+              decoration: BoxDecoration(color: Colors.green,shape: BoxShape.circle),
+              margin: EdgeInsets.only(right: 25),
+              child: IconButton(onPressed: sendMessage, icon: Icon(Icons.send)))
+          ],
+        ),
       ),
     );
   }
@@ -143,7 +159,7 @@ class _ChatpageState extends State<Chatpage> {
 
   Future uploadimage()async{
     
-    String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+    String fileName = DateTime.now().microsecondsSinceEpoch.toString();
     int status = 1;
     
     final String curuId = firebaseAuth.currentUser!.uid;

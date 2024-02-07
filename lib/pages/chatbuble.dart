@@ -8,7 +8,7 @@ class Chatbuble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      Size size = MediaQuery.of(context).size;
+      
 
     return image=='text'? Container(
       decoration: BoxDecoration(color: iscurrentuser?Colors.green:Colors.grey.shade500,
@@ -17,8 +17,10 @@ class Chatbuble extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 2.5,horizontal: 25),
       child: Text(message,style: TextStyle(color: Colors.white),),
     ):Container(
-      height: size.height/2.5,
-      width: size.width/2,
+      
+      color: Colors.green,
+      padding: EdgeInsets.all(2),
+      margin: EdgeInsets.symmetric(vertical: 2.5,horizontal: 25),
       child: message != "null"?Image.network(message):CircularProgressIndicator(),
     );
   }
